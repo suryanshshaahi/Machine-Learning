@@ -1,0 +1,78 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.ensemble import RandomForestClassifier\n",
+        "from sklearn.metrics import accuracy_score, classification_report\n",
+        "\n",
+        "\n",
+        "iris_df = pd.read_csv('iris.csv')\n",
+        "\n",
+        "\n",
+        "X_iris = iris_df.drop('species', axis=1)\n",
+        "y_iris = iris_df['species']\n",
+        "\n",
+        "\n",
+        "X_train_i, X_test_i, y_train_i, y_test_i = train_test_split(X_iris, y_iris, test_size=0.2, random_state=42)\n",
+        "\n",
+        "\n",
+        "rf_iris = RandomForestClassifier(n_estimators=100, random_state=42)\n",
+        "rf_iris.fit(X_train_i, y_train_i)\n",
+        "\n",
+        "predictions_iris = rf_iris.predict(X_test_i)\n",
+        "print(\"--- Iris Dataset Results ---\")\n",
+        "print(f\"Accuracy: {accuracy_score(y_test_i, predictions_iris) * 100:.2f}%\\n\")\n",
+        "print(\"Classification Report:\")\n",
+        "print(classification_report(y_test_i, predictions_iris))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "9wL1cTy4YN7l",
+        "outputId": "5a75b585-f7ce-426e-d355-ce7a117bb9bd"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "--- Iris Dataset Results ---\n",
+            "Accuracy: 100.00%\n",
+            "\n",
+            "Classification Report:\n",
+            "              precision    recall  f1-score   support\n",
+            "\n",
+            "      setosa       1.00      1.00      1.00        10\n",
+            "  versicolor       1.00      1.00      1.00         9\n",
+            "   virginica       1.00      1.00      1.00        11\n",
+            "\n",
+            "    accuracy                           1.00        30\n",
+            "   macro avg       1.00      1.00      1.00        30\n",
+            "weighted avg       1.00      1.00      1.00        30\n",
+            "\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
